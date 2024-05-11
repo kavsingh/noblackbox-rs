@@ -311,6 +311,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "console_log"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1e7871d2947441b0fdd8e2bd1ce2a2f75304f896582c0d572162d48290683c48"
+dependencies = [
+ "log",
+ "web-sys",
+]
+
+[[package]]
 name = "const_format"
 version = "0.2.32"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -816,6 +826,8 @@ dependencies = [
  "leptos_macro",
  "leptos_reactive",
  "leptos_server",
+ "serde",
+ "serde_json",
  "server_fn",
  "tracing",
  "typed-builder",
@@ -1176,11 +1188,13 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "console_error_panic_hook",
+ "console_log",
  "http 1.1.0",
  "leptos",
  "leptos_axum",
  "leptos_meta",
  "leptos_router",
+ "log",
  "thiserror",
  "tokio",
  "tower",
