@@ -9,8 +9,6 @@ pub fn App() -> impl IntoView {
 	provide_meta_context();
 
 	view! {
-		// injects a stylesheet into the document <head>
-		// id=leptos means cargo-leptos will hot-reload this stylesheet
 		<Stylesheet id="leptos" href="/pkg/noblackbox-rs.css"/>
 		// sets the document title
 		<Title text="Welcome to Leptos"/>
@@ -18,10 +16,7 @@ pub fn App() -> impl IntoView {
 		<Router fallback=|| {
 			let mut outside_errors = Errors::default();
 			outside_errors.insert_with_default_key(AppError::NotFound);
-			view! {
-				<ErrorTemplate outside_errors/>
-			}
-			.into_view()
+			view! { <ErrorTemplate outside_errors/> }.into_view()
 		}>
 			<main class="p-4">
 				<Routes>
@@ -44,6 +39,9 @@ fn HomePage() -> impl IntoView {
 		<button
 			class="border border-black bg-white p-2 rounded-md dark:border-white dark:bg-black dark:text-white"
 			on:click=on_click
-		>"Click Me: " {count}</button>
+		>
+			"Click Me: "
+			{count}
+		</button>
 	}
 }

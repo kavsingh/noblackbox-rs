@@ -19,6 +19,11 @@
 	"rust-analyzer.check.command": "clippy",
 	"rust-analyzer.procMacro.ignored": { "leptos_macro": ["server"] },
 	"rust-analyzer.cargo.features": ["ssr", "hydrate"],
+	"rust-analyzer.rustfmt.overrideCommand": [
+		"leptosfmt",
+		"--stdin",
+		"--rustfmt"
+	],
 
 	"eslint.validate": ["rust"],
 
