@@ -1,0 +1,17 @@
+{
+	"name": "end2end",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "playwright test"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@playwright/test": "1.44.0",
+		"eslint-plugin-playwright": "1.6.0"
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"extends": "@tsconfig/strictest/tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"lib": ["esnext"],
+		"module": "esnext",
+		"moduleDetection": "force",
+		"moduleResolution": "bundler",
+		"noEmit": true,
+		"target": "esnext"
+	},
+	"exclude": ["**/node_modules"],
+	"include": ["./*.ts", "./*.*.cjs"]
+}
