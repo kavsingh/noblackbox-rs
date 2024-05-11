@@ -1,6 +1,3 @@
-/** @type {import("path")} */
-const path = require("node:path");
-
 /** @type {import("eslint").ESLint.ConfigData} */
 module.exports = {
 	reportUnusedDisableDirectives: true,
@@ -96,12 +93,7 @@ module.exports = {
 		{
 			files: ["src/**/*.rs"],
 			parser: "@angular-eslint/template-parser",
-			settings: {
-				tailwindcss: {
-					config: path.join(__dirname, "tailwind.config.ts"),
-					classRegex: "^class$"
-				},
-			},
+			settings: { tailwindcss: { classRegex: "^class$" } },
 			extends: ["plugin:tailwindcss/recommended"],
 		},
 	],
