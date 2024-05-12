@@ -5,6 +5,7 @@ pub mod fileserv;
 pub mod layouts;
 pub mod pages;
 
+#[allow(unused_imports)]
 use log::Level;
 
 #[cfg(feature = "hydrate")]

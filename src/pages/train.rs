@@ -1,10 +1,8 @@
 use crate::components::{
-	button::Button,
 	card::{Card, CardContent, CardHeader, CardTitle},
+	sketchpad::Sketchpad,
 };
 use leptos::*;
-use wasm_bindgen::prelude::*;
-use web_sys::HtmlCanvasElement;
 
 #[component]
 pub fn Train() -> impl IntoView {
@@ -19,101 +17,5 @@ pub fn Train() -> impl IntoView {
 				<Sketchpad/>
 			</CardContent>
 		</Card>
-	}
-}
-
-type Path = Vec<(i32, i32)>;
-
-#[island]
-pub fn Sketchpad() -> impl IntoView {
-	let (drawing, set_drawing) = create_signal(false);
-	let (paths, set_paths) = create_signal(Vec::<Path>::new());
-	let canvas_ref = create_node_ref::<html::Canvas>();
-
-	let on_pointer_down = move |event: ev::PointerEvent| {
-		let canvas: HtmlCanvasElement = leptos::event_target(&event);
-		let rect = canvas.get_bounding_client_rect();
-		let x = event.client_x();
-		let y = event.client_y();
-
-		set_drawing.set(true);
-		set_paths.update(|paths| {
-			paths.push(vec![(x - rect.left() as i32, y - rect.top() as i32)]);
-		});
-	};
-
-	let on_pointer_move = move |event: ev::PointerEvent| {
-		if !drawing.get() {
-			return;
-		}
-
-		let canvas: HtmlCanvasElement = leptos::event_target(&event);
-		let rect = canvas.get_bounding_client_rect();
-		let x = event.client_x();
-		let y = event.client_y();
-
-		set_paths.update(|paths| {
-			if let Some(path) = paths.last_mut() {
-				path.push((x - rect.left() as i32, y - rect.top() as i32));
-			}
-		});
-	};
-
-	let on_pointer_up = move |_| {
-		set_drawing.set(false);
-	};
-
-	let on_undo_click = move |_| {
-		set_paths.update(|paths| {
-			paths.pop();
-		});
-	};
-
-	create_effect(move |_| {
-		if let Some(canvas) = canvas_ref() {
-			let ctx = canvas
-				.get_context("2d")
-				.unwrap()
-				.unwrap()
-				.dyn_into::<web_sys::CanvasRenderingContext2d>()
-				.unwrap();
-
-			ctx.clear_rect(0.0, 0.0, canvas.width() as f64, canvas.height() as f64);
-			ctx.begin_path();
-			ctx.set_line_width(2.0);
-			ctx.set_stroke_style(&"black".into());
-
-			for path in paths.get() {
-				if path.is_empty() {
-					continue;
-				}
-
-				ctx.move_to(path[0].0 as f64, path[0].1 as f64);
-
-				for point in path.iter().skip(1) {
-					ctx.line_to(point.0 as f64, point.1 as f64);
-				}
-			}
-
-			ctx.stroke();
-		}
-	});
-
-	view! {
-		<div class="flex gap-4">
-			<div class="rounded-md overflow-hidden">
-				<canvas
-					id="train"
-					width="400"
-					height="400"
-					class="bg-white stroke-black"
-					node_ref=canvas_ref
-					on:pointerdown=on_pointer_down
-					on:pointermove=on_pointer_move
-					on:pointerup=on_pointer_up
-				></canvas>
-			</div>
-			<Button on:click=on_undo_click>Undo</Button>
-		</div>
 	}
 }
