@@ -1195,6 +1195,7 @@ dependencies = [
  "leptos_meta",
  "leptos_router",
  "log",
+ "serde",
  "thiserror",
  "tokio",
  "tower",

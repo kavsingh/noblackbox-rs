@@ -3,8 +3,8 @@ use leptos::*;
 use wasm_bindgen::JsCast as _;
 use web_sys::HtmlCanvasElement;
 
-#[island]
-pub fn Sketchpad() -> impl IntoView {
+#[component]
+pub fn Sketchpad(#[prop(into)] on_save: Callback<Vec<Path>>) -> impl IntoView {
 	let (is_drawing, set_is_drawing) = create_signal(false);
 	let (paths, set_paths) = create_signal(Vec::<Path>::new());
 	let canvas_ref = create_node_ref::<html::Canvas>();
@@ -46,6 +46,11 @@ pub fn Sketchpad() -> impl IntoView {
 		set_paths.update(|paths| {
 			paths.pop();
 		});
+	};
+
+	let on_save_click = move |_| {
+		on_save(paths());
+		set_paths(vec![]);
 	};
 
 	create_effect(move |_| {
@@ -94,7 +99,10 @@ pub fn Sketchpad() -> impl IntoView {
 					on:pointerleave=end_draw_path
 				></canvas>
 			</div>
-			<Button on:click=on_undo_click>Undo</Button>
+			<div class="flex flex-col gap-6">
+				<Button on:click=on_save_click>Save</Button>
+				<Button on:click=on_undo_click>Undo</Button>
+			</div>
 		</div>
 	}
 }
