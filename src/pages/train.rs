@@ -36,7 +36,7 @@ fn Trainer() -> impl IntoView {
 		("clock", None),
 	]);
 
-	let current_label = move || drawings().iter().find(|&(_, d)| d.is_none()).map(|d| d.0);
+	let current_label = move || drawings().iter().find(|(_, d)| d.is_none()).map(|d| d.0);
 
 	let save_drawing = move |drawing: Vec<Vec<(i32, i32)>>| {
 		let label = match current_label() {
@@ -45,7 +45,7 @@ fn Trainer() -> impl IntoView {
 		};
 
 		set_drawings.update(|current| {
-			if let Some(index) = current.iter().position(|&(l, _)| l == label) {
+			if let Some(index) = current.iter().position(|d| d.0 == label) {
 				current[index].1 = Some(drawing);
 			}
 		})
