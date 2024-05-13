@@ -1,9 +1,21 @@
+use std::collections::HashMap;
+
 use crate::components::{
 	button::Button,
 	card::{Card, CardContent, CardHeader, CardTitle},
 	sketchpad::Sketchpad,
 };
 use leptos::*;
+
+type Paths = Vec<Vec<(i32, i32)>>;
+type Drawing = (&'static str, Option<Paths>);
+
+#[derive(serde::Serialize, Debug)]
+struct TrainingData {
+	session: i32,
+	student: &'static str,
+	drawings: HashMap<&'static str, Paths>,
+}
 
 #[component]
 pub fn Train() -> impl IntoView {
@@ -36,9 +48,9 @@ fn Trainer() -> impl IntoView {
 		("clock", None),
 	]);
 
-	let current_label = move || drawings().iter().find(|(_, d)| d.is_none()).map(|d| d.0);
+	let current_label = move || drawings().iter().find(|d| d.1.is_none()).map(|d| d.0);
 
-	let save_drawing = move |drawing: Vec<Vec<(i32, i32)>>| {
+	let save_drawing = move |paths: Paths| {
 		let label = match current_label() {
 			Some(l) => l,
 			None => return,
@@ -46,12 +58,28 @@ fn Trainer() -> impl IntoView {
 
 		set_drawings.update(|current| {
 			if let Some(index) = current.iter().position(|d| d.0 == label) {
-				current[index].1 = Some(drawing);
+				current[index].1 = Some(paths);
 			}
 		})
 	};
 
-	let save_session = move |_| log::info!("save session {:?}", drawings());
+	let save_session = move |_| {
+		let mut drawing_map = HashMap::<&str, Paths>::new();
+
+		drawings.get_untracked().iter().for_each(|drawing| {
+			if let Some(paths) = &drawing.1 {
+				drawing_map.insert(drawing.0, paths.clone());
+			}
+		});
+
+		let data = TrainingData {
+			session: 123456,
+			student: "__leptos__",
+			drawings: drawing_map,
+		};
+
+		log::debug!("save session {:?}", data)
+	};
 
 	view! {
 		<Show when=move || current_label().is_some()>
@@ -68,5 +96,3 @@ fn Trainer() -> impl IntoView {
 		}>done! <Button on:click=save_session>save training data</Button></Show>
 	}
 }
-
-type Drawing = (&'static str, Option<Vec<Vec<(i32, i32)>>>);
