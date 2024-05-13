@@ -49,8 +49,14 @@ pub fn Sketchpad(#[prop(into)] on_save: Callback<Vec<Path>>) -> impl IntoView {
 	};
 
 	let on_save_click = move |_| {
-		on_save(paths());
+		// cloning here since parent might drop this component immediately
+		// on save, and calling set_paths aftwerwards shows a warning since
+		// the paths setter will have been disposed
+		// TODO: see about a way to not clone paths
+		let to_save = paths().clone();
+
 		set_paths(vec![]);
+		on_save(to_save);
 	};
 
 	create_effect(move |_| {

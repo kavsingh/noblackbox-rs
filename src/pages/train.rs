@@ -1,4 +1,5 @@
 use crate::components::{
+	button::Button,
 	card::{Card, CardContent, CardHeader, CardTitle},
 	sketchpad::Sketchpad,
 };
@@ -35,13 +36,7 @@ fn Trainer() -> impl IntoView {
 		("clock", None),
 	]);
 
-	let current_label = create_memo::<Option<&str>>(move |_| {
-		if let Some(drawing) = drawings().iter().find(|&(_, d)| d.is_none()) {
-			Some(drawing.0)
-		} else {
-			None
-		}
-	});
+	let current_label = move || drawings().iter().find(|&(_, d)| d.is_none()).map(|d| d.0);
 
 	let save_drawing = move |drawing: Vec<Vec<(i32, i32)>>| {
 		let label = match current_label() {
@@ -50,22 +45,27 @@ fn Trainer() -> impl IntoView {
 		};
 
 		set_drawings.update(|current| {
-			let label_index = current.iter().position(|&(l, _)| l == label);
-
-			if let Some(index) = label_index {
+			if let Some(index) = current.iter().position(|&(l, _)| l == label) {
 				current[index].1 = Some(drawing);
 			}
 		})
 	};
 
+	let save_session = move |_| log::info!("save session {:?}", drawings());
+
 	view! {
-		<h3 class="mb-2 font-normal text-muted-foreground">
-			draw a
-			<span class="font-semibold text-foreground">
-				{move || current_label().unwrap_or("--")}
-			</span>
-		</h3>
-		<Sketchpad on_save=save_drawing/>
+		<Show when=move || current_label().is_some()>
+			<h3 class="mb-2 font-normal text-muted-foreground">
+				draw a
+				<span class="font-semibold text-foreground">
+					{move || current_label().unwrap_or("--")}
+				</span>
+			</h3>
+			<Sketchpad on_save=save_drawing/>
+		</Show>
+		<Show when=move || {
+			current_label().is_none()
+		}>done! <Button on:click=save_session>save training data</Button></Show>
 	}
 }
 
