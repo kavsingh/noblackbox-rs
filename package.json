@@ -16,16 +16,16 @@
 	],
 	"scripts": {
 		"dev": "cargo leptos watch",
-		"e2e": "(cd end2end && bun run start)"
+		"e2e": "cargo leptos end-to-end"
 	},
 	"devDependencies": {
-		"@angular-eslint/template-parser": "17.4.0",
+		"@angular-eslint/template-parser": "17.4.1",
 		"@tsconfig/strictest": "2.0.5",
-		"@types/bun": "1.1.1",
+		"@types/bun": "1.1.2",
 		"@types/eslint": "8.56.10",
-		"@types/node": "20.12.11",
-		"@typescript-eslint/eslint-plugin": "7.8.0",
-		"@typescript-eslint/parser": "7.8.0",
+		"@types/node": "20.12.12",
+		"@typescript-eslint/eslint-plugin": "7.9.0",
+		"@typescript-eslint/parser": "7.9.0",
 		"eslint": "8.57.0",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-import-resolver-typescript": "3.6.1",
