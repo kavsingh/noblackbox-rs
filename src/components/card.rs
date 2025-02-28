@@ -3,35 +3,71 @@
 use leptos::*;
 
 #[component]
-pub fn Card(children: Children) -> impl IntoView {
+pub fn Card(#[prop(optional)] class: Option<&'static str>, children: Children) -> impl IntoView {
 	view! {
-		<div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
-			{children()}
-		</div>
+		<div class=format!(
+			"bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm {}",
+			class.unwrap_or_default(),
+		)>{children()}</div>
 	}
 }
 
 #[component]
-pub fn CardHeader(children: Children) -> impl IntoView {
-	view! { <div class="flex flex-col gap-1.5 px-6">{children()}</div> }
+pub fn CardHeader(
+	#[prop(optional)] class: Option<&'static str>,
+	children: Children,
+) -> impl IntoView {
+	view! {
+		<div class=format!(
+			"flex flex-col gap-1.5 px-6 {}",
+			class.unwrap_or_default(),
+		)>{children()}</div>
+	}
 }
 
 #[component]
-pub fn CardTitle(children: Children) -> impl IntoView {
-	view! { <div class="leading-none font-semibold">{children()}</div> }
+pub fn CardTitle(
+	#[prop(optional)] class: Option<&'static str>,
+	children: Children,
+) -> impl IntoView {
+	view! {
+		<div class=format!(
+			"leading-none font-semibold {}",
+			class.unwrap_or_default(),
+		)>{children()}</div>
+	}
 }
 
 #[component]
-pub fn CardDescription(children: Children) -> impl IntoView {
-	view! { <div class="text-muted-foreground text-sm">{children()}</div> }
+pub fn CardDescription(
+	#[prop(optional)] class: Option<&'static str>,
+	children: Children,
+) -> impl IntoView {
+	view! {
+		<div class=format!(
+			"text-muted-foreground text-sm {}",
+			class.unwrap_or_default(),
+		)>{children()}</div>
+	}
 }
 
 #[component]
-pub fn CardContent(children: Children) -> impl IntoView {
-	view! { <div class="px-6">{children()}</div> }
+pub fn CardContent(
+	#[prop(optional)] class: Option<&'static str>,
+	children: Children,
+) -> impl IntoView {
+	view! { <div class=format!("px-6 {}", class.unwrap_or_default())>{children()}</div> }
 }
 
 #[component]
-pub fn CardFooter(children: Children) -> impl IntoView {
-	view! { <div class="flex items-center px-6">{children()}</div> }
+pub fn CardFooter(
+	#[prop(optional)] class: Option<&'static str>,
+	children: Children,
+) -> impl IntoView {
+	view! {
+		<div class=format!(
+			"flex items-center px-6 {}",
+			class.unwrap_or_default(),
+		)>{children()}</div>
+	}
 }
