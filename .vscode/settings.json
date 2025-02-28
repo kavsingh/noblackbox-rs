@@ -1,5 +1,4 @@
 {
-	"eslint.enable": true,
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": { "source.fixAll": "explicit" },
 	"editor.quickSuggestions": { "strings": true },
@@ -25,26 +24,48 @@
 		"--rustfmt"
 	],
 
-	"eslint.validate": ["rust"],
-
 	"typescript.tsdk": "node_modules/typescript/lib",
+
+	"biome.enabled": true,
+
+	// for things biome does not yet cover
+	"prettier.useTabs": true,
 
 	"files.associations": { "*.css": "tailwindcss" },
 	"tailwindCSS.includeLanguages": { "rust": "html", "*.rs": "html" },
 	"tailwindCSS.validate": true,
 	"tailwindCSS.lint.cssConflict": "error",
+	"tailwindCSS.lint.invalidApply": "error",
+	"tailwindCSS.lint.invalidConfigPath": "error",
+	"tailwindCSS.lint.invalidScreen": "error",
+	"tailwindCSS.lint.invalidTailwindDirective": "error",
+	"tailwindCSS.lint.invalidVariant": "error",
 	"tailwindCSS.lint.recommendedVariantOrder": "error",
 
 	"cssVariables.lookupFiles": ["src/style/**/*.css"],
 
-	"[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-	"[javascriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-	"[typescript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-	"[typescriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-	"[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-	"[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-	"[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-	"[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-	"[yaml]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-	"[toml]": { "editor.defaultFormatter": "tamasfe.even-better-toml" }
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[toml]": {
+		"editor.defaultFormatter": "tamasfe.even-better-toml"
+	}
 }
