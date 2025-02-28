@@ -32,6 +32,7 @@
 	"prettier.useTabs": true,
 
 	"files.associations": { "*.css": "tailwindcss" },
+	"tailwindCSS.experimental.configFile": "style/tailwind.css",
 	"tailwindCSS.includeLanguages": { "rust": "html", "*.rs": "html" },
 	"tailwindCSS.validate": true,
 	"tailwindCSS.lint.cssConflict": "error",
