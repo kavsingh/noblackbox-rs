@@ -1,7 +1,8 @@
-use crate::components::button::Button;
 use leptos::*;
 use wasm_bindgen::JsCast as _;
 use web_sys::HtmlCanvasElement;
+
+use crate::components::button::Button;
 
 #[component]
 pub fn Sketchpad(#[prop(into)] on_save: Callback<Vec<Path>>) -> impl IntoView {
@@ -73,7 +74,7 @@ pub fn Sketchpad(#[prop(into)] on_save: Callback<Vec<Path>>) -> impl IntoView {
 			ctx.clear_rect(0.0, 0.0, canvas.width() as f64, canvas.height() as f64);
 			ctx.begin_path();
 			ctx.set_line_width(2.0);
-			ctx.set_stroke_style(&"black".into());
+			ctx.set_stroke_style_str("black");
 
 			for path in current_paths {
 				if path.is_empty() {

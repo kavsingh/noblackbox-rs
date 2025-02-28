@@ -29,9 +29,11 @@
 
 	"typescript.tsdk": "node_modules/typescript/lib",
 
-	"tailwindCSS.validate": true,
-	"tailwindCSS.includeLanguages": { "rust": "html", "*.rs": "html" },
 	"files.associations": { "*.css": "tailwindcss" },
+	"tailwindCSS.includeLanguages": { "rust": "html", "*.rs": "html" },
+	"tailwindCSS.validate": true,
+	"tailwindCSS.lint.cssConflict": "error",
+	"tailwindCSS.lint.recommendedVariantOrder": "error",
 
 	"cssVariables.lookupFiles": ["src/style/**/*.css"],
 

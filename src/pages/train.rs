@@ -1,11 +1,10 @@
 use std::collections::HashMap;
 
-use crate::components::{
-	button::Button,
-	card::{Card, CardContent, CardHeader, CardTitle},
-	sketchpad::Sketchpad,
-};
 use leptos::*;
+
+use crate::components::button::Button;
+use crate::components::card::{Card, CardContent, CardHeader, CardTitle};
+use crate::components::sketchpad::Sketchpad;
 
 type Paths = Vec<Vec<(i32, i32)>>;
 
@@ -32,7 +31,7 @@ pub fn Train() -> impl IntoView {
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<Trainer/>
+				<Trainer />
 			</CardContent>
 		</Card>
 	}
@@ -73,7 +72,7 @@ fn Trainer() -> impl IntoView {
 					{move || current_label().unwrap_or("--")}
 				</span>
 			</h3>
-			<Sketchpad on_save=save_drawing/>
+			<Sketchpad on_save=save_drawing />
 		</Show>
 		<Show when=move || {
 			current_label().is_none()

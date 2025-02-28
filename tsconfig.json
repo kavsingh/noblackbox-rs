@@ -1,15 +1,18 @@
 {
+	"$schema": "https://json.schemastore.org/tsconfig",
 	"extends": "@tsconfig/strictest/tsconfig.json",
 	"compilerOptions": {
 		"allowJs": true,
 		"checkJs": true,
+		"erasableSyntaxOnly": true,
 		"lib": ["esnext"],
 		"module": "esnext",
 		"moduleDetection": "force",
 		"moduleResolution": "bundler",
 		"noEmit": true,
-		"target": "esnext"
+		"target": "esnext",
+		"verbatimModuleSyntax": true
 	},
 	"exclude": ["**/node_modules"],
-	"include": ["./*.ts", "./*.*.cjs"]
+	"include": ["end2end", "src/*.ts", "src/*.js", "./*.ts", "./*.js"]
 }

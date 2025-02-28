@@ -20,7 +20,7 @@ pub fn AppRoot() -> impl IntoView {
 			</Card>
 		</header>
 		<main class="p-4">
-			<Outlet/>
+			<Outlet />
 		</main>
 	}
 }
